@@ -11,15 +11,17 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
-    height: 100vh;
+    min-height: 100vh;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     background: var(--bg-gradient);
-    overflow: hidden;
+    overflow-x: hidden;
     font-family: 'Outfit', sans-serif;
     color: white;
 }
@@ -138,9 +140,123 @@ body {
     animation-delay: 1s;
 }
 
+/* Utility Classes */
+.hidden {
+    display: none !important;
+}
+
+.zoom-out {
+    transform: scale(0.8);
+    opacity: 0;
+    transition: all 0.6s ease;
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.8s forwards;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
+}
+
+/* Gallery Styles */
+.gallery-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    background: rgba(15, 12, 41, 0.95);
+    backdrop-filter: blur(10px);
+    overflow-y: auto;
+    padding: 40px 10px;
+}
+
+.gallery-container.hidden {
+    display: none !important;
+}
+
+.page {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
+}
+
+.page.active {
+    display: flex;
+}
+
+.photo-card {
+    background: white;
+    padding: 10px 10px 30px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    transform: rotate(var(--rotation));
+    transition: transform 0.3s ease;
+    width: 280px;
+    max-width: 85vw;
+}
+
+.photo-card:hover {
+    transform: rotate(0deg) scale(1.03);
+    z-index: 10;
+}
+
+.photo-card img {
+    width: 100%;
+    height: auto;
+    max-height: 250px;
+    object-fit: cover;
+    border: 1px solid #eee;
+}
+
+.caption {
+    color: #333;
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.1rem;
+    margin-top: 12px;
+    text-align: center;
+    line-height: 1.3;
+}
+
+.nav-btn, .close-btn {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 12px 35px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-family: 'Outfit', sans-serif;
+    margin-top: 15px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 1rem;
+}
+
+.nav-btn:hover, .close-btn:hover {
+    background: var(--primary-color);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(255, 45, 85, 0.4);
+}
+
+.tap-hint {
+    font-size: 0.9rem;
+    opacity: 0.7;
+    margin-top: 15px;
+    animation: pulseText 2s infinite;
 }
 
 /* Overlay Styles */
@@ -199,15 +315,39 @@ body {
 /* Mobile Adjustments */
 @media (max-width: 480px) {
     .heart-wrapper {
-        width: 200px;
-        height: 200px;
+        width: 160px;
+        height: 160px;
+        margin-bottom: 20px;
     }
     
     .initials {
-        font-size: 3.5rem;
+        font-size: 2.8rem;
     }
     
     .message h1 {
-        font-size: 1.8rem;
+        font-size: 1.5rem;
+    }
+
+    .photo-card {
+        width: 260px;
+        max-width: 90vw;
+    }
+
+    .photo-card img {
+        max-height: 200px;
+    }
+}
+
+/* Landscape and Short Screens */
+@media (max-height: 600px) {
+    .gallery-container {
+        align-items: flex-start;
+    }
+    .page {
+        padding: 40px 0;
+    }
+    .heart-wrapper {
+        width: 120px;
+        height: 120px;
     }
 }

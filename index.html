@@ -41,18 +41,73 @@
         <div class="message">
             <h1 class="fade-in">Para mi Chinita bonita</h1>
             <p class="fade-in delays-1">H & F siempre juntos</p>
+            <p class="tap-hint">(Toca el corazón)</p>
         </div>
     </main>
+
+    <div id="gallery" class="gallery-container hidden">
+        <div class="page active" id="page-1">
+            <div class="photo-card" style="--rotation: -5deg;">
+                <img src="assets/WhatsApp Image 2026-04-05 at 02.49.42.jpeg" alt="Recuerdo 1">
+                <p class="caption">Cada momento a tu lado...</p>
+            </div>
+            <div class="photo-card" style="--rotation: 3deg;">
+                <img src="assets/WhatsApp Image 2026-04-05 at 02.49.43.jpeg" alt="Recuerdo 2">
+                <p class="caption">...es un tesoro que guardo.</p>
+            </div>
+            <button class="nav-btn" onclick="nextPage()">Siguiente →</button>
+        </div>
+
+        <div class="page" id="page-2">
+            <div class="photo-card" style="--rotation: 4deg;">
+                <img src="assets/WhatsApp Image 2026-04-06 at 06.30.10 (1).jpeg" alt="Recuerdo 3">
+                <p class="caption">Nuestra historia apenas comienza.</p>
+            </div>
+            <div class="photo-card" style="--rotation: -3deg;">
+                <img src="assets/WhatsApp Image 2026-04-06 at 06.30.10.jpeg" alt="Recuerdo 4">
+                <p class="caption">Te amo más que ayer.</p>
+            </div>
+            <button class="nav-btn" onclick="prevPage()">← Volver</button>
+            <button class="close-btn" onclick="closeGallery()">Regresar al Inicio</button>
+        </div>
+    </div>
 
     <script>
         const audio = document.getElementById('bg-music');
         const overlay = document.getElementById('play-overlay');
+        const mainContainer = document.querySelector('.container');
+        const gallery = document.getElementById('gallery');
+        const heart = document.querySelector('.heart-wrapper');
 
         overlay.addEventListener('click', () => {
             audio.play();
             overlay.classList.add('hide');
-            // Trigger heart beat explicitly if needed, but it's already in CSS
         });
+
+        heart.addEventListener('click', () => {
+            mainContainer.classList.add('zoom-out');
+            setTimeout(() => {
+                mainContainer.classList.add('hidden');
+                gallery.classList.remove('hidden');
+                gallery.classList.add('fade-in-up');
+            }, 600);
+        });
+
+        function nextPage() {
+            document.getElementById('page-1').classList.remove('active');
+            document.getElementById('page-2').classList.add('active');
+        }
+
+        function prevPage() {
+            document.getElementById('page-2').classList.remove('active');
+            document.getElementById('page-1').classList.add('active');
+        }
+
+        function closeGallery() {
+            gallery.classList.add('hidden');
+            gallery.classList.remove('fade-in-up');
+            mainContainer.classList.remove('hidden', 'zoom-out');
+        }
 
         // Simple script to generate floating particles
         const starsContainer = document.getElementById('stars');
