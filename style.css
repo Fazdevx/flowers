@@ -1,0 +1,213 @@
+:root {
+    --primary-color: #ff2d55;
+    --secondary-color: #ff007f;
+    --bg-dark: #0f0c29;
+    --bg-gradient: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    --heart-color: #ff4d6d;
+    --text-glow: 0 0 10px rgba(255, 77, 109, 0.8);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--bg-gradient);
+    overflow: hidden;
+    font-family: 'Outfit', sans-serif;
+    color: white;
+}
+
+.stars-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    filter: blur(1px);
+    box-shadow: 0 0 10px white;
+}
+
+.container {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+}
+
+.heart-wrapper {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    margin: 0 auto 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.heart-svg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    fill: var(--heart-color);
+    filter: drop-shadow(0 0 20px rgba(255, 45, 85, 0.6));
+    animation: heartbeat 1.5s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.initials {
+    position: relative;
+    z-index: 2;
+    font-family: 'Dancing Script', cursive;
+    font-size: 5rem;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.letter {
+    animation: float-initials 3s infinite ease-in-out;
+}
+
+.letter.f {
+    animation-delay: 1.5s;
+}
+
+.amp {
+    font-size: 2.5rem;
+    opacity: 0.8;
+}
+
+.message {
+    padding: 20px;
+}
+
+.message h1 {
+    font-size: 2.5rem;
+    font-weight: 300;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+}
+
+.message p {
+    font-size: 1.2rem;
+    opacity: 0.7;
+    font-family: 'Dancing Script', cursive;
+}
+
+/* Animations */
+
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    15% { transform: scale(1.15); }
+    30% { transform: scale(1); }
+    45% { transform: scale(1.25); }
+    100% { transform: scale(1); }
+}
+
+@keyframes float-initials {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) translateX(0); opacity: 0.2; }
+    50% { transform: translateY(-100px) translateX(20px); opacity: 0.8; }
+}
+
+/* Entrance Animations */
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 2s forwards;
+}
+
+.delays-1 {
+    animation-delay: 1s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Overlay Styles */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-dark);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    cursor: pointer;
+    transition: opacity 1s ease, visibility 1s;
+}
+
+.overlay.hide {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.overlay-content {
+    text-align: center;
+}
+
+.overlay-content p {
+    font-size: 1.5rem;
+    font-family: 'Dancing Script', cursive;
+    margin-bottom: 20px;
+    animation: pulseText 2s infinite;
+}
+
+.pulse-ring {
+    width: 60px;
+    height: 60px;
+    border: 3px solid var(--primary-color);
+    border-radius: 50%;
+    margin: 0 auto;
+    position: relative;
+    animation: pulseRing 1.5s infinite;
+}
+
+@keyframes pulseText {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+@keyframes pulseRing {
+    0% { transform: scale(0.8); opacity: 0.8; }
+    100% { transform: scale(1.5); opacity: 0; }
+}
+
+/* Mobile Adjustments */
+@media (max-width: 480px) {
+    .heart-wrapper {
+        width: 200px;
+        height: 200px;
+    }
+    
+    .initials {
+        font-size: 3.5rem;
+    }
+    
+    .message h1 {
+        font-size: 1.8rem;
+    }
+}
